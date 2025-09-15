@@ -1,0 +1,279 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    font-size: 10px; /* Tamaño de fuente global más pequeño */
+}
+
+h1, h2, h4 {
+    color: #333;
+    font-weight: bold;
+    font-size: 14px; /* Tamaño de los títulos más pequeño */
+}
+
+/* Contenedores */
+
+.primeraparte-container, .segundaparte-container, .terceraparte-container,
+.cuartaparte-container, .quintaparte-container, .sextaparte-container,
+.septimaparte-container, .matrizbcg-container {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo de Tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5px 0; /* Margen más pequeño entre tablas */
+}
+
+table th, table td {
+    padding: 3px; /* Espaciado de celdas reducido */
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 10px; /* Tamaño de fuente más pequeño en las tablas */
+}
+
+/* Encabezados de diferentes colores */
+.header-green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.header-gray {
+    background-color: #f2f2f2;
+}
+
+.header-red {
+    background-color: #f44336;
+    color: white;
+}
+
+.header-blue {
+    background-color: #2196F3;
+    color: white;
+}
+
+.header-yellow {
+    background-color: #FFEB3B;
+}
+
+/* Botones */
+button, input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 4px 8px; /* Tamaño de botón más pequeño */
+    text-align: center;
+    font-size: 10px; /* Tamaño de fuente de los botones más pequeño */
+    margin: 2px 1px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+input[type="text"], input[type="number"] {
+    padding: 4px; /* Reducir espaciado interno en los inputs */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 85%;
+    margin: 2px 0; /* Margen más pequeño */
+    font-size: 10px; /* Tamaño de fuente más pequeño en los inputs */
+}
+
+/* Listas de productos ingresados */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 4px; /* Espaciado interno más pequeño */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin: 3px 0; /* Margen entre elementos de lista más pequeño */
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px; /* Tamaño de fuente reducido */
+}
+
+.delete-button {
+    background-color: #f44336;
+    border: none;
+    padding: 2px 5px; /* Tamaño de botón más pequeño */
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 10px;
+}
+
+.delete-button:hover {
+    background-color: #e53935;
+}
+
+/* Estilo personalizado para títulos */
+h4 {
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 3px;
+    font-size: 12px; /* Tamaño de fuente más pequeño para subtítulos */
+}
+
+/* Ajustes específicos para contenedores */
+.primeraparte-container {
+    width: 250px;
+    background-color: white;
+    padding: 8px; /* Reducción de padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 140px;
+    position: absolute;
+    top: 20px;
+    left: 190px;
+}
+
+.segundaparte-container {
+    width: 205px;
+    height: 220px;
+    overflow-y: auto;
+    background-color: white;
+    padding: 5px; /* Reducción de padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 20px;
+    left: 800px;
+}
+
+.terceraparte-container {
+    width: 300px;
+    height: 220px;
+    overflow-y: auto;
+    background-color: white;
+    padding: 8px; /* Reducción de padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 20px;
+    left: 470px;
+}
+
+.cuartaparte-container {
+    width: 250px;
+    height: 260px;
+    background-color: #ffffff;
+    padding: 8px; /* Reducción de padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    position: absolute;
+    top: 190px;
+    left: 190px;
+}
+
+.quintaparte-container {
+    width: 200px;
+    height: 180px;
+    background-color: #ffffff;
+    padding: 8px; /* Reducción de padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    position: absolute;
+    top: 270px;
+    left: 800px;
+}
+
+.sextaparte-container {
+    width: 300px;
+    max-height: 180px;
+    background-color: #ffffff;
+    padding: 8px; /* Reducción de padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    position: absolute;
+    top: 270px;
+    left: 470px;
+}
+
+.septimaparte-container {
+    width: 420px;
+    height: 180px;
+    background-color: #ffffff;
+    padding: 8px; /* Reducción de padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    position: absolute;
+    top: 480px;
+    left: 190px;
+}
+
+.matrizbcg-container {
+    width: 350px;
+    background-color: #ffffff;
+    padding: 8px; /* Reducción de padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 480px;
+    left: 650px;
+}
+
+/* Botón de Volver */
+.back-button {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    text-align: center;
+    font-size: 12px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    position: absolute; /* Permite la configuración de posición manual */
+    top: 900px; /* Cambia estos valores para ajustar la posición */
+    left: 500px;
+}
+
+.back-button:hover {
+    background-color: #1976D2;
+}
+
+/* Botón de Siguiente */
+.next-button {
+    background-color: #45a049;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    text-align: center;
+    font-size: 12px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    position: absolute; /* Permite la configuración de posición manual */
+    top: 900px; /* Cambia estos valores para ajustar la posición */
+    left: 660px;
+}
+
+.next-button:hover {
+    background-color: #45a049;
+}
+
+.fortalezas-debilidades-container {
+    margin-top: 680px; /* Ajusta este valor para moverlo más abajo */
+    margin-left: 400px;
+}
