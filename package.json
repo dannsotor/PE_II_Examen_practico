@@ -1,0 +1,12 @@
+{
+  "name": "proyecto_peti",
+  "version": "1.0.0",
+  "description": "Hola chicos, a continuación están los comandos que deben ejecutar para poder iniciar el proyecto.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
