@@ -30,7 +30,7 @@
 
       <!-- Título -->
       <h1 class="text-4xl sm:text-5xl font-extrabold text-indigo-700 dark:text-indigo-400 mb-6 leading-tight">
-        Cómo elaborar un <br> Plan Estratégico de TI (PETI)
+        Cómo elaborarr un <br> Plan Estratégico de TI (PETI)
       </h1>
 
       <!-- Introducción -->
