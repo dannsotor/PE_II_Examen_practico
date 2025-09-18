@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Verificar que se ha enviado la ID del plan
+// Verificar que se ha enviado la ID del plann
 if (isset($_POST['idPlan'])) {
     // Almacenar la ID del plan en la sesión
     $_SESSION['idPlan'] = $_POST['idPlan'];
