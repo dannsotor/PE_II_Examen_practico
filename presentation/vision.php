@@ -10,32 +10,31 @@ if (!isset($_SESSION['idPlan'])) {
     exit;
 }
 
-// Obtener la misión del plan utilizando la ID almacenada en la sesión
+// Obtener la visión del plan utilizando la ID almacenada en la sesión
 $idPlan = $_SESSION['idPlan'];
 $planData = new PlanData();
-$mision = $planData->obtenerMisionPorId($idPlan); // Obtener la misión actual
+$vision = $planData->obtenerVisionPorId($idPlan); // Obtener la visión actual
 
-// Manejo de la actualización de la misión
+// Manejo de la actualización de la visión
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
-    $nuevaMision = $_POST['mision'] ?? ''; // Obtener la nueva misión desde el formulario
-    $resultado = $planData->actualizarMision($idPlan, $nuevaMision); // Actualizar misión en la base de datos
+    $nuevaVision = $_POST['vision'] ?? ''; // Obtener la nueva visión desde el formulario
+    $resultado = $planData->actualizarVision($idPlan, $nuevaVision); // Actualizar visión en la base de datos
 
     // Verificar si la actualización fue exitosa
     if ($resultado) {
-        echo "<script>alert('Misión guardada exitosamente.');</script>";
-        $mision = $nuevaMision; // Actualizar la misión en la variable para reflejar el cambio en la página
+        echo "<script>alert('Visión guardada exitosamente.');</script>";
+        $vision = $nuevaVision; // Actualizar la visión en la variable para reflejar el cambio en la página
     } else {
-        echo "<script>alert('Error al actualizar la misión.');</script>";
+        echo "<script>alert('Error al actualizar la visión.');</script>";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Misión</title>
+  <title>Visión</title>
   <style>
     body {
       background: #f8fafc;
@@ -207,21 +206,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
   </style>
 </head>
 <body>
-  <div class="form-content">
-    <h1>Misión</h1>
-    <form method="POST" action="">
-      <textarea name="mision" rows="10" placeholder="Ingrese la misión aquí..."><?php echo htmlspecialchars($mision ?? '', ENT_QUOTES); ?></textarea>
-      <br><br>
-      <input type="submit" name="guardar" value="Guardar" class="btn-guardar">
-    </form>
-    <div class="button-container">
-      <a href="dashboard.php" class="btn-volver">Volver al Dashboard</a>
-      <a href="vision.php" class="btn-siguiente">Siguiente</a>
-    </div>
-  </div>
+    <div class="container">
+        <div class="form-content">
+            <h1>Visión</h1>
+            <form method="POST" action="">
+                <textarea name="vision" rows="10" cols="50" placeholder="Ingrese la visión aquí..."><?php echo htmlspecialchars($vision ?? '', ENT_QUOTES); ?></textarea>
+                <br><br>
+                <input type="submit" name="guardar" value="Guardar" class="btn-guardar">
+            </form>
+            <div class="button-container">
+                <a href="dashboard.php" class="btn-volver">Volver al Dashboard</a>
+                <a href="valores.php" class="btn-siguiente">Siguiente</a> <!-- Botón siguiente -->
+            </div>
+        </div>
 
-  <div class="info-content">
-    <?php include('aside.php'); ?>
-  </div>
+        <div class="info-content">
+            <?php include('aside.php'); ?>
+        </div>
+    </div>
 </body>
 </html>
