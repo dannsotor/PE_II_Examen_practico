@@ -194,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
       margin-bottom: -2px;
     }
 
-    /* Modo oscuro */
+    /* Modo oscuro jejeje*/
     @media (prefers-color-scheme: dark) {
       body { background-color: #0f172a; color: #e2e8f0; }
       h1 { color: #c7d2fe; }
