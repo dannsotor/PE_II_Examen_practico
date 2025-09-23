@@ -1,3 +1,13 @@
+<?php
+$errorMessage = '';
+if (isset($_GET['error'])) {
+    if ($_GET['error'] === 'empty') {
+        $errorMessage = 'Por favor, complete todos los campos.';
+    } elseif ($_GET['error'] === 'invalid') {
+        $errorMessage = 'Nombre de usuario o contraseña incorrectos.';
+    }
+}
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -60,5 +70,29 @@
       </form>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const error = "<?php echo $errorMessage; ?>";
+      if (error) {
+        // Modal usando Tailwind simple (puedes sustituir por Flowbite, SweetAlert, etc.)
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
+        modal.innerHTML = `
+          <div class="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 text-center space-y-4">
+            <h2 class="text-xl font-bold text-red-600">Error</h2>
+            <p class="text-gray-700">${error}</p>
+            <button id="closeModal" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+              Cerrar
+            </button>
+          </div>`;
+        document.body.appendChild(modal);
+
+        document.getElementById('closeModal').addEventListener('click', () => {
+          modal.remove();
+        });
+      }
+    });
+  </script>
 </body>
 </html>
