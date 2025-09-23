@@ -3,7 +3,7 @@ services:
   web:
     build: .
     ports:
-      - "8080:80"
+      - "8081:80"
     volumes:
       - .:/var/www/html   # Monta la raíz directamente
     env_file:
