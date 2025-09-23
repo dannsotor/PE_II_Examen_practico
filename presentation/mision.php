@@ -1,41 +1,40 @@
 <?php
-session_start(); // Iniciar la sesión
+session_start();
+require_once '../data/plan.php';
 
-require_once '../data/plan.php'; // Asegúrate de incluir la clase que maneja los planes
-
-// Verificar si el plan ha sido creado
 if (!isset($_SESSION['idPlan'])) {
-    // Redirigir al dashboard si no se ha creado un plan
     header("Location: ../presentation/dashboard.php");
     exit;
 }
 
-// Obtener la misión del plan utilizando la ID almacenada en la sesión
 $idPlan = $_SESSION['idPlan'];
 $planData = new PlanData();
-$mision = $planData->obtenerMisionPorId($idPlan); // Obtener la misión actual
+$mision = $planData->obtenerMisionPorId($idPlan);
 
-// Manejo de la actualización de la misión
+$mensaje = '';
+$tipoMensaje = ''; // success o error
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
-    $nuevaMision = $_POST['mision'] ?? ''; // Obtener la nueva misión desde el formulario
-    $resultado = $planData->actualizarMision($idPlan, $nuevaMision); // Actualizar misión en la base de datos
+    $nuevaMision = $_POST['mision'] ?? '';
+    $resultado = $planData->actualizarMision($idPlan, $nuevaMision);
 
-    // Verificar si la actualización fue exitosa
     if ($resultado) {
-        echo "<script>alert('Misión guardada exitosamente.');</script>";
-        $mision = $nuevaMision; // Actualizar la misión en la variable para reflejar el cambio en la página
+        $mensaje = 'Misión guardada exitosamente.';
+        $tipoMensaje = 'success';
+        $mision = $nuevaMision;
     } else {
-        echo "<script>alert('Error al actualizar la misión.');</script>";
+        $mensaje = 'Error al actualizar la misión.';
+        $tipoMensaje = 'error';
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Misión</title>
+
   <style>
     body {
       background: #f8fafc;
@@ -63,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
 
     textarea {
       width: 100%;
-      padding: 12px;
+      padding: 16px !important;
+       
       border: 1px solid #cbd5e1;
       background-color: #ffffff;
       resize: vertical;
@@ -207,8 +207,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
   </style>
 </head>
 <body>
+
+  <!-- Toast de mensaje -->
+  <?php if (!empty($mensaje)): ?>
+<div id="toast" role="alert"
+     class="fixed top-5 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg text-white 
+     <?= $tipoMensaje === 'success' ? 'bg-green-500' : 'bg-red-500' ?> 
+     transition transform opacity-0 scale-90">
+  <?= htmlspecialchars($mensaje) ?>
+</div>
+  <?php endif; ?>
+<br>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
   <div class="form-content">
-    <h1>Misión</h1>
+<h1 class="text-3xl font-bold text-white mb-4 text-center">Misión</h1>
+
     <form method="POST" action="">
       <textarea name="mision" rows="10" placeholder="Ingrese la misión aquí..."><?php echo htmlspecialchars($mision ?? '', ENT_QUOTES); ?></textarea>
       <br><br>
@@ -223,5 +238,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
   <div class="info-content">
     <?php include('aside.php'); ?>
   </div>
+
+
+
+
 </body>
 </html>
+  <script>
+    // Animar el toast si existe
+    const toast = document.getElementById('toast');
+    if (toast) {
+      setTimeout(() => {
+        toast.classList.remove('opacity-0', 'scale-90');
+        toast.classList.add('opacity-100', 'scale-100');
+      }, 100); // Aparece suavemente
+
+      // Desaparecer después de 3 segundos
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'scale-100');
+        toast.classList.add('opacity-0', 'scale-90');
+      }, 3000);
+    }
+  </script>
