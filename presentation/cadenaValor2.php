@@ -11,7 +11,16 @@ $idPlan = $_SESSION['idPlan'];
 
 // Instancia de la clase que maneja los planes
 $planData = new PlanData();
+// Variables de mensajes
+$mensaje = '';
+$tipoMensaje = ''; // 'success' o 'error'
 
+// Ejemplo: podrías setear el mensaje después de una acción
+if (isset($_SESSION['mensaje'])) {
+    $mensaje = $_SESSION['mensaje']['texto'];
+    $tipoMensaje = $_SESSION['mensaje']['tipo']; // success o error
+    unset($_SESSION['mensaje']); // limpiar después de mostrarlo
+}
 // Obtener el autovalor guardado en la base de datos
 $autovalorGuardado = $planData->obtenerAutovalorPorId($idPlan);
 
@@ -67,187 +76,270 @@ $preguntas = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autodiagnóstico de la Cadena de Valor</title>
-    <style>
-        .btn-volver, .btn-siguiente {
-            background-color: gray;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-decoration: none;
-            cursor: pointer;
-            border-radius: 25px;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
+              <script src="https://cdn.tailwindcss.com"></script>
 
-        .btn-volver:hover, .btn-siguiente:hover {
-            background-color: #555;
-        }
+  <style>
+    body {
+      background: #f8fafc;
+      color: #1e293b;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding-bottom: 80px;
+      transition: background-color .3s ease, color .3s ease;
+    }
+    h1 {
+      color: #4338ca; /* Indigo */
+      text-align: center;
+      font-weight: 700;
+    }
 
-        .btn-siguiente {
-            background-color: #333;
-        }
+    .form-content {
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
 
-        .button-save {
-            background-color: #ff4d4d; /* Color rojo como en la imagen */
-            color: white;
-            border: none;
-            padding: 10px 20px; /* Más delgado que antes */
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 8px; /* Bordes ligeramente redondeados */
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-         
-        }
+    textarea {
+      width: 100%;
+      padding: 16px !important;
+      border: 1px solid #cbd5e1;
+      background-color: #ffffff;
+      resize: vertical;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 15px;
+      border-radius: 8px;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    textarea:focus {
+      border-color: #4338ca;
+      outline: none;
+      box-shadow: 0 0 0 2px #c7d2fe;
+    }
 
-        .button-save:hover {
-            background-color: #d43f3f; /* Color rojo más oscuro en hover */
-        }
+    .btn-volver, .btn-siguiente, .btn-guardar {
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color .3s ease, transform .2s ease;
+    }
+    .btn-guardar {
+      background-color: #14b8a6; /* Teal */
+      color: #fff;
+    }
+    .btn-guardar:hover {
+      background-color: #0d9488;
+      transform: translateY(-2px);
+    }
+    .btn-volver {
+      background-color: #4338ca; /* Indigo */
+      color: #fff;
+    }
+    .btn-volver:hover {
+      background-color: #3730a3;
+      transform: translateY(-2px);
+    }
+    .btn-siguiente {
+      background-color: #facc15; /* Amarillo cálido */
+      color: #1e293b;
+    }
+    .btn-siguiente:hover {
+      background-color: #eab308;
+      transform: translateY(-2px);
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            width: 100%;
-            max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
-            margin: 20px auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .center {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .result {
-            font-size: 18px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .textarea-title {
-            font-size: 16px;
-            margin-top: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-        .reflexion-textarea, .fortalezas-textarea, .debilidades-textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-    </style>
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 18px;
+    }
+    .button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+/* Botones generales */
+.button-container a {
+  flex: 1;
+  text-align: center;
+  padding: 12px 20px;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid #4338ca;
+  color: #fff;
+  background-color: #4338ca; /* Indigo */
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+}
+
+/* Hover efecto suave */
+.button-container a:hover {
+  background-color: #3730a3; /* Indigo más oscuro */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+  transform: translateY(-2px);
+}
+
+/* Ajustes específicos en modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .button-container a {
+    background-color: #3730a3; /* Indigo oscuro por defecto */
+    border-color: #4f46e5;
+    color: #e0e7ff;
+  }
+  .button-container a:hover {
+    background-color: #4f46e5; /* Indigo más brillante */
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(79,70,229,0.6);
+  }
+}
+
+    /* Barra inferior tipo pestañas */
+    .info-content {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      overflow-x: auto;
+      z-index: 1000;
+    }
+    .info-content ul {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      align-items: flex-end;
+    }
+    .info-content a {
+      display: block;
+      color: #fff;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 12px 24px 8px;
+      background-color: #4338ca; /* Indigo tabs */
+      margin: 0 2px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+    }
+    .info-content a:hover {
+      background-color: #3730a3;
+      padding-top: 14px;
+      margin-bottom: -2px;
+    }
+
+    /* Modo oscuro */
+    @media (prefers-color-scheme: dark) {
+      body { background-color: #0f172a; color: #e2e8f0; }
+      h1 { color: #c7d2fe; }
+      .form-content { background-color: #1e293b; border-color: #334155; }
+      textarea { background-color: #1e293b; border-color: #334155; color: #f1f5f9; }
+      .info-content a { background-color: #6366f1; }
+      .info-content a:hover { background-color: #4f46e5; }
+    }
+  </style>
 </head>
 <body>
+      <?php if (!empty($mensaje)): ?>
+    <div id="toast" role="alert"
+        class="fixed top-5 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg text-white 
+        <?= $tipoMensaje === 'success' ? 'bg-green-500' : 'bg-red-500' ?> 
+        transition transform opacity-0 scale-90">
+    <?= htmlspecialchars($mensaje) ?>
+    </div>
+  <?php endif; ?>
 
-    <div class="container">
-        <h2 class="center">Autodiagnóstico de la Cadena de Valor</h2>
+    <div class="form-content">
+        <h2 class="text-3xl font-bold text-white mb-4 text-center">Autodiagnóstico de la Cadena de Valor</h2>
 
-        
+        <br>
 
         <form method="POST" action="../business/autodiagnostico.php">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Autodiagnóstico de la Cadena de Valor Interna</th>
-                        <th>En total en desacuerdo</th>
-                        <th>No está de acuerdo</th>
-                        <th>Está de acuerdo</th>
-                        <th>Está bastante de acuerdo</th>
-                        <th>En total acuerdo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    for ($i = 0; $i < 25; $i++) {
-                        // Obtener el valor seleccionado de autovalores
-                        $valorSeleccionado = isset($autovalores[$i]) ? $autovalores[$i] : 0;
-                        $pregunta = $preguntas[$i]; // Obtener la pregunta correspondiente
+<table class="w-full border border-white text-center text-sm" cellspacing="0" cellpadding="10">
+    <thead>
+        <tr class="bg-indigo-600 text-white">
+            <th class="px-4 py-3 text-left border border-white">Enunciado</th>
+            <th class="px-3 py-2 border border-white">En total en desacuerdo</th>
+            <th class="px-3 py-2 border border-white">No está de acuerdo</th>
+            <th class="px-3 py-2 border border-white">Está de acuerdo</th>
+            <th class="px-3 py-2 border border-white">Está bastante de acuerdo</th>
+            <th class="px-3 py-2 border border-white">En total acuerdo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php 
+        for ($i = 0; $i < 25; $i++) {
+            $valorSeleccionado = isset($autovalores[$i]) ? $autovalores[$i] : 0;
+            $pregunta = $preguntas[$i];
 
-                        echo "<tr>
-                            <td>$pregunta</td>
-                            <td><input type='radio' name='punto_" . ($i + 1) . "' value='0' " . ($valorSeleccionado == 0 ? 'checked' : '') . "></td>
-                            <td><input type='radio' name='punto_" . ($i + 1) . "' value='1' " . ($valorSeleccionado == 1 ? 'checked' : '') . "></td>
-                            <td><input type='radio' name='punto_" . ($i + 1) . "' value='2' " . ($valorSeleccionado == 2 ? 'checked' : '') . "></td>
-                            <td><input type='radio' name='punto_" . ($i + 1) . "' value='3' " . ($valorSeleccionado == 3 ? 'checked' : '') . "></td>
-                            <td><input type='radio' name='punto_" . ($i + 1) . "' value='4' " . ($valorSeleccionado == 4 ? 'checked' : '') . "></td>
-                        </tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
+            echo "<tr>
+                <td class='px-4 py-3 border border-white text-white-800'>$pregunta</td>
+                <td class='border border-white'><input type='radio' name='punto_" . ($i + 1) . "' value='0' " . ($valorSeleccionado == 0 ? 'checked' : '') . "></td>
+                <td class='border border-white'><input type='radio' name='punto_" . ($i + 1) . "' value='1' " . ($valorSeleccionado == 1 ? 'checked' : '') . "></td>
+                <td class='border border-white'><input type='radio' name='punto_" . ($i + 1) . "' value='2' " . ($valorSeleccionado == 2 ? 'checked' : '') . "></td>
+                <td class='border border-white'><input type='radio' name='punto_" . ($i + 1) . "' value='3' " . ($valorSeleccionado == 3 ? 'checked' : '') . "></td>
+                <td class='border border-white'><input type='radio' name='punto_" . ($i + 1) . "' value='4' " . ($valorSeleccionado == 4 ? 'checked' : '') . "></td>
+            </tr>";
+        }
+        ?>
+    </tbody>
+</table>
 
             <!-- Mostrar el potencial de mejora si está disponible -->
-            <?php if ($potencialMejora !== null): ?>
-                <div class="result center">
-                    <strong>POTENCIAL DE MEJORA DE LA CADENA DE VALOR INTERNA: <?php echo $potencialMejora; ?>%</strong>
-                </div>
-                <?php unset($_SESSION['potencialMejora']); // Limpiar el valor de la sesión ?>
-            <?php endif; ?>
-        
+<?php if ($potencialMejora !== null): ?>
+    <div class="flex justify-center mt-6">
+        <div class="bg-indigo-50 border border-indigo-300 rounded-xl shadow-md px-6 py-4 text-center max-w-md">
+            <strong class="text-indigo-700 text-lg">
+                POTENCIAL DE MEJORA DE LA CADENA DE VALOR INTERNA:
+            </strong>
+            <p class="text-2xl font-bold text-indigo-900 mt-2">
+                <?php echo $potencialMejora; ?>%
+            </p>
+        </div>
+    </div>
+    <?php unset($_SESSION['potencialMejora']); // Limpiar el valor de la sesión ?>
+<?php endif; ?>
+        <br>
+        <br>
             <!-- Título y Cuadro de texto para reflexiones -->
             <div class="center">
-                <label class="textarea-title">Reflexiones</label>
+                <label class="block text-lg font-semibold text-white-700 mb-2 border-b-2 border-indigo-300 pb-1">Reflexiones</label>
                 <textarea class="reflexion-textarea" name="reflexion" placeholder="Escribe tus reflexiones sobre el autodiagnóstico..."><?php echo isset($reflexionesGuardadas) ? htmlspecialchars($reflexionesGuardadas) : ''; ?></textarea>
             </div>
 
             <!-- Título y Cuadro de texto para fortalezas -->
             <div class="center">
-                <label class="textarea-title">Fortalezas</label>
+                <label class="block text-lg font-semibold text-white-700 mb-2 border-b-2 border-indigo-300 pb-1">Fortalezas</label>
                 <textarea class="fortalezas-textarea" name="fortalezas" placeholder="Escribe las fortalezas..."><?php echo isset($fortalezasGuardadas) ? htmlspecialchars($fortalezasGuardadas) : ''; ?></textarea>
             </div>
 
             <!-- Título y Cuadro de texto para debilidades -->
             <div class="center">
-                <label class="textarea-title">Debilidades</label>
+                <label class="block text-lg font-semibold text-white-700 mb-2 border-b-2 border-indigo-300 pb-1">Debilidades</label>
                 <textarea class="debilidades-textarea" name="debilidades" placeholder="Escribe las debilidades..."><?php echo isset($debilidadesGuardadas) ? htmlspecialchars($debilidadesGuardadas) : ''; ?></textarea>
             </div>
 
             <!-- Botón para guardar la autoevaluación -->
-            <div class="center">
-                <button type="submit" name="guardarAutoevaluacion" class="button-save">Realizar Autoevaluación</button>
-                <button type="submit" name="guardarReflexion" class="button-save">Guardar Datos</button>
-            </div>
+         <div class="flex flex-col items-center space-y-4 mt-4">
+  <button type="submit" name="guardarAutoevaluacion" 
+      class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-xl shadow-md hover:bg-blue-700 transition">
+      Realizar Autoevaluación
+  </button>
+
+  <button type="submit" name="guardarReflexion" 
+      class="px-6 py-2 bg-green-600 text-white font-semibold rounded-xl shadow-md hover:bg-green-700 transition">
+      Guardar Datos
+  </button>
+</div>
         </form>
 
             <div class="center" style="display: flex; justify-content: space-between; margin-top: 20px;">
@@ -255,6 +347,24 @@ $preguntas = [
             <a href="matriz1.php" class="btn-siguiente">Siguiente</a>
         </div>
     </div>
-
+ <div class="info-content">
+            <?php include('aside.php'); ?>
+        </div>
 </body>
 </html>
+  <script>
+    // Animar el toast si existe
+    const toast = document.getElementById('toast');
+    if (toast) {
+      setTimeout(() => {
+        toast.classList.remove('opacity-0', 'scale-90');
+        toast.classList.add('opacity-100', 'scale-100');
+      }, 100); // Aparece suavemente
+
+      // Desaparecer después de 3 segundos
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'scale-100');
+        toast.classList.add('opacity-0', 'scale-90');
+      }, 3000);
+    }
+  </script>
