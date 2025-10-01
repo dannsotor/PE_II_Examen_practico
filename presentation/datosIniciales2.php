@@ -22,8 +22,6 @@ $planData = new PlanData();
 
 // Obtener el plan utilizando ambos IDs
 $plan = $planData->obtenerPlanPorId($idPlan, $idusuario);
-
-// Manejo de la actualización del plan
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardarPlan'])) {
     $nombreEmpresa = $_POST['nombreEmpresa'] ?? '';
     $fecha = $_POST['fecha'] ?? '';
@@ -32,19 +30,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardarPlan'])) {
     // Manejar la carga del logo
     $logo = null;
     if (isset($_FILES['logo']) && $_FILES['logo']['error'] == UPLOAD_ERR_OK) {
-        $targetDir = "../uploads/"; // Cambia esto a tu directorio de destino
-        $logo = $targetDir . basename($_FILES["logo"]["name"]);
-        move_uploaded_file($_FILES["logo"]["tmp_name"], $logo);
+        $targetDir = __DIR__ . "/assets/uploads/"; 
+        $logo = basename($_FILES["logo"]["name"]); // Solo el nombre del archivo
+        $rutaDestino = $targetDir . $logo;
+
+        if (!move_uploaded_file($_FILES["logo"]["tmp_name"], $rutaDestino)) {
+            $mensaje = 'Error al subir el archivo.';
+            $tipoMensaje = 'error';
+        }
     }
 
     // Actualizar el plan en la base de datos
-    $resultado = $planData->actualizarPlan($idPlan, $nombreEmpresa, $fecha, $promotores, $logo);
+    if (empty($mensaje)) { // Solo si no hubo error con el archivo
+        $resultado = $planData->actualizarPlan($idPlan, $nombreEmpresa, $fecha, $promotores, $logo);
 
-    if ($resultado) {
-        echo "<script>alert('Plan actualizado exitosamente.');</script>";
-        $plan = $planData->obtenerPlanPorId($idPlan, $idusuario); // Volver a obtener el plan actualizado
-    } else {
-        echo "<script>alert('Error al actualizar el plan.');</script>";
+        if ($resultado) {
+            $mensaje = 'Plan actualizado exitosamente.';
+            $tipoMensaje = 'success';
+            $plan = $planData->obtenerPlanPorId($idPlan, $idusuario); // Refrescar plan
+        } else {
+            $mensaje = 'Error al actualizar el plan.';
+            $tipoMensaje = 'error';
+        }
     }
 }
 ?>
@@ -97,7 +104,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardarPlan'])) {
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-sky-50 to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-indigo-950">
-
+      <?php if (!empty($mensaje)): ?>
+    <div id="toast" role="alert"
+        class="fixed top-5 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg text-white 
+        <?= $tipoMensaje === 'success' ? 'bg-green-500' : 'bg-red-500' ?> 
+        transition transform opacity-0 scale-90">
+    <?= htmlspecialchars($mensaje) ?>
+    </div>
+  <?php endif; ?>
   <!-- Fondo decorativo -->
   <div aria-hidden="true" class="fixed inset-0 overflow-hidden pointer-events-none">
     <div class="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-indigo-300/40 blur-3xl animate-[float_6s_ease-in-out_infinite]"></div>
@@ -166,3 +180,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardarPlan'])) {
     </div>
 </body>
 </html>
+
+
+ <script>
+    // Animar el toast si existe
+    const toast = document.getElementById('toast');
+    if (toast) {
+      setTimeout(() => {
+        toast.classList.remove('opacity-0', 'scale-90');
+        toast.classList.add('opacity-100', 'scale-100');
+      }, 100); // Aparece suavemente
+
+      // Desaparecer después de 3 segundos
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'scale-100');
+        toast.classList.add('opacity-0', 'scale-90');
+      }, 3000);
+    }
+  </script>

@@ -14,6 +14,10 @@ if (!isset($_SESSION['idPlan'])) {
 $idPlan = $_SESSION['idPlan'];
 $planData = new PlanData();
 $valores = $planData->obtenerValoresPorId($idPlan); // Obtener los valores actuales
+$mensaje = '';
+$tipoMensaje = ''; // success o error
+
+
 
 // Manejo de la actualización de los valores
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
@@ -22,10 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
 
     // Verificar si la actualización fue exitosa
     if ($resultado) {
-        echo "<script>alert('Valores guardados exitosamente.');</script>";
+        $mensaje = 'Valores guardados exitosamente.';
+        $tipoMensaje = 'success';
         $valores = $nuevosValores; // Actualizar los valores en la variable para reflejar el cambio en la página
     } else {
-        echo "<script>alert('Error al actualizar los valores.');</script>";
+      $mensaje = 'Error al actualizar.';
+        $tipoMensaje = 'error';
     }
 }
 ?>
@@ -36,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valores</title>
+    <script src="https://cdn.tailwindcss.com"></script> 
+
   <style>
     body {
       background: #f8fafc;
@@ -63,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
 
     textarea {
       width: 100%;
-      padding: 12px;
+      padding: 16px !important;
       border: 1px solid #cbd5e1;
       background-color: #ffffff;
       resize: vertical;
@@ -195,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
       margin-bottom: -2px;
     }
 
-    /* Modo oscuro jejeje*/
+    /* Modo oscuro */
     @media (prefers-color-scheme: dark) {
       body { background-color: #0f172a; color: #e2e8f0; }
       h1 { color: #c7d2fe; }
@@ -209,8 +217,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
 <body>
    
 
+  <!-- Toast de mensaje -->
+  <?php if (!empty($mensaje)): ?>
+<div id="toast" role="alert"
+     class="fixed top-5 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg text-white 
+     <?= $tipoMensaje === 'success' ? 'bg-green-500' : 'bg-red-500' ?> 
+     transition transform opacity-0 scale-90">
+  <?= htmlspecialchars($mensaje) ?>
+</div>
+  <?php endif; ?>
+
+
         <div class="form-content">
-            <h1>Valores</h1>
+            <h1 class="text-3xl font-bold text-white mb-4 text-center">Valores</h1>
+            <br>
             <form method="POST" action="">
                 <textarea name="valores" rows="10" cols="50" placeholder="Ingrese los valores aquí..."><?php echo htmlspecialchars($valores ?? '', ENT_QUOTES); ?></textarea>
                 <br><br>
@@ -230,4 +250,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
    
     
 </html>
+  <script>
+    // Animar el toast si existe
+    const toast = document.getElementById('toast');
+    if (toast) {
+      setTimeout(() => {
+        toast.classList.remove('opacity-0', 'scale-90');
+        toast.classList.add('opacity-100', 'scale-100');
+      }, 100); // Aparece suavemente
 
+      // Desaparecer después de 3 segundos
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'scale-100');
+        toast.classList.add('opacity-0', 'scale-90');
+      }, 3000);
+    }
+  </script>
