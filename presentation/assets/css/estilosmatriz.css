@@ -1,142 +1,280 @@
+/* === Estilo Moderno Paleta Indigo-Teal === */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 2rem;
+  width: 95%;
+  max-width: 1600px;
+  margin: 2rem auto;
+}
+
+/* Cada bloque principal */
+main section {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+main section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* Títulos dentro de cada formulario */
+main section h4,
+main section h2,
+main section h1 {
+  text-align: center;
+  color: #4338ca;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Formularios y tablas dentro */
+main section form {
+  width: 100%;
+}
+
+main section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+main section th,
+main section td {
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+main section button {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  background-color: #4338ca;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .3s ease;
+}
+
+main section button:hover {
+  background-color: #3730a3;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f8fafc; /* fondo claro */
+    color: #1e293b; /* texto gris oscuro */
     margin: 0;
     padding: 20px;
-    font-size: 10px; /* Tamaño de fuente global más pequeño */
+    font-size: 11px;
+    transition: background-color .3s ease, color .3s ease;
 }
 
 h1, h2, h4 {
-    color: #333;
-    font-weight: bold;
-    font-size: 14px; /* Tamaño de los títulos más pequeño */
+    color: #4338ca; /* Indigo */
+    font-weight: 700;
+    font-size: 15px;
 }
 
-/* Contenedores */
-
-.primeraparte-container, .segundaparte-container, .terceraparte-container,
-.cuartaparte-container, .quintaparte-container, .sextaparte-container,
-.septimaparte-container, .matrizbcg-container {
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo de Tablas */
+/* === Tablas === */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 5px 0; /* Margen más pequeño entre tablas */
+    margin: 6px 0;
 }
 
 table th, table td {
-    padding: 3px; /* Espaciado de celdas reducido */
+    padding: 5px;
     text-align: center;
-    border: 1px solid #ddd;
-    font-size: 10px; /* Tamaño de fuente más pequeño en las tablas */
+    border: 1px solid #e2e8f0;
+    font-size: 11px;
 }
 
-/* Encabezados de diferentes colores */
-.header-green {
-    background-color: #4CAF50;
-    color: white;
-}
+/* Encabezados con paleta moderna */
+.header-green { background-color: #10b981; color: white; }   /* Teal */
+.header-gray { background-color: #f1f5f9; color: #1e293b; }
+.header-red { background-color: #ef4444; color: white; }
+.header-blue { background-color: #3b82f6; color: white; }
+.header-yellow { background-color: #facc15; color: #1e293b; }
 
-.header-gray {
-    background-color: #f2f2f2;
-}
-
-.header-red {
-    background-color: #f44336;
-    color: white;
-}
-
-.header-blue {
-    background-color: #2196F3;
-    color: white;
-}
-
-.header-yellow {
-    background-color: #FFEB3B;
-}
-
-/* Botones */
+/* === Botones === */
 button, input[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #4338ca; /* Indigo */
     color: white;
     border: none;
-    padding: 4px 8px; /* Tamaño de botón más pequeño */
-    text-align: center;
-    font-size: 10px; /* Tamaño de fuente de los botones más pequeño */
-    margin: 2px 1px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color .3s ease, transform .2s ease;
 }
 
 button:hover, input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #3730a3;
+    transform: translateY(-1px);
 }
 
+/* Inputs */
 input[type="text"], input[type="number"] {
-    padding: 4px; /* Reducir espaciado interno en los inputs */
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 5px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
     width: 85%;
-    margin: 2px 0; /* Margen más pequeño */
-    font-size: 10px; /* Tamaño de fuente más pequeño en los inputs */
+    margin: 3px 0;
+    font-size: 11px;
+    background-color: #ffffff;
+    transition: border-color .2s ease, box-shadow .2s ease;
 }
 
-/* Listas de productos ingresados */
+input[type="text"]:focus, input[type="number"]:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px #c7d2fe;
+    outline: none;
+}
+
+/* === Listas === */
 ul {
     list-style-type: none;
     padding: 0;
 }
 
 ul li {
-    padding: 4px; /* Espaciado interno más pequeño */
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    margin: 3px 0; /* Margen entre elementos de lista más pequeño */
-    border-radius: 4px;
+    padding: 5px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    margin: 3px 0;
+    border-radius: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 10px; /* Tamaño de fuente reducido */
+    font-size: 11px;
 }
 
 .delete-button {
-    background-color: #f44336;
+    background-color: #ef4444;
     border: none;
-    padding: 2px 5px; /* Tamaño de botón más pequeño */
+    padding: 3px 6px;
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 10px;
+    transition: background-color .3s;
+    font-size: 11px;
 }
 
 .delete-button:hover {
-    background-color: #e53935;
+    background-color: #dc2626;
 }
 
-/* Estilo personalizado para títulos */
+/* === Títulos === */
 h4 {
-    border-bottom: 2px solid #4CAF50;
-    padding-bottom: 3px;
-    font-size: 12px; /* Tamaño de fuente más pequeño para subtítulos */
+    border-bottom: 2px solid #6366f1;
+    padding-bottom: 4px;
+    font-size: 13px;
+}
+/* === NUEVO DISEÑO CON GRID === */
+/* === Diseño uniforme sin scroll === */
+/* 🎴 Tarjetas individuales */
+.card {
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Ajustes específicos para contenedores */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Formularios y tablas */
+input, button, select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  margin-top: 0.5rem;
+}
+
+button {
+  background: #4f46e5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #6366f1;
+}
+.fortalezas-debilidades-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  background-color: #1e293b;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  border: 1px solid #334155;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+th {
+  background: #334155;
+  color: #93c5fd;
+}
+
+tr:nth-child(even) {
+  background: #1e293b;
+}
+
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+  .matriz-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajuste responsive */
+@media (max-width: 768px) {
+  .container-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* === Contenedores específicos === */
 .primeraparte-container {
     width: 250px;
-    background-color: white;
-    padding: 8px; /* Reducción de padding */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
     height: 140px;
+    padding: 10px;
     position: absolute;
     top: 20px;
     left: 190px;
@@ -146,10 +284,7 @@ h4 {
     width: 205px;
     height: 220px;
     overflow-y: auto;
-    background-color: white;
-    padding: 5px; /* Reducción de padding */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 8px;
     position: absolute;
     top: 20px;
     left: 800px;
@@ -159,10 +294,7 @@ h4 {
     width: 300px;
     height: 220px;
     overflow-y: auto;
-    background-color: white;
-    padding: 8px; /* Reducción de padding */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
     position: absolute;
     top: 20px;
     left: 470px;
@@ -171,11 +303,8 @@ h4 {
 .cuartaparte-container {
     width: 250px;
     height: 260px;
-    background-color: #ffffff;
-    padding: 8px; /* Reducción de padding */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    padding: 10px;
     position: absolute;
     top: 190px;
     left: 190px;
@@ -184,11 +313,8 @@ h4 {
 .quintaparte-container {
     width: 200px;
     height: 180px;
-    background-color: #ffffff;
-    padding: 8px; /* Reducción de padding */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    padding: 10px;
     position: absolute;
     top: 270px;
     left: 800px;
@@ -197,11 +323,8 @@ h4 {
 .sextaparte-container {
     width: 300px;
     max-height: 180px;
-    background-color: #ffffff;
-    padding: 8px; /* Reducción de padding */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    padding: 10px;
     position: absolute;
     top: 270px;
     left: 470px;
@@ -210,11 +333,8 @@ h4 {
 .septimaparte-container {
     width: 420px;
     height: 180px;
-    background-color: #ffffff;
-    padding: 8px; /* Reducción de padding */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    padding: 10px;
     position: absolute;
     top: 480px;
     left: 190px;
@@ -222,58 +342,154 @@ h4 {
 
 .matrizbcg-container {
     width: 350px;
-    background-color: #ffffff;
-    padding: 8px; /* Reducción de padding */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
     position: absolute;
     top: 480px;
     left: 650px;
 }
 
-/* Botón de Volver */
+/* === Botones Navegación === */
 .back-button {
-    background-color: #2196F3;
+    background-color: #4338ca;
     color: white;
-    border: none;
-    padding: 6px 12px;
-    text-align: center;
+    padding: 7px 14px;
     font-size: 12px;
-    margin: 5px;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    position: absolute; /* Permite la configuración de posición manual */
-    top: 900px; /* Cambia estos valores para ajustar la posición */
+    position: absolute;
+    top: 900px;
     left: 500px;
+    transition: background-color .3s ease, transform .2s ease;
 }
 
 .back-button:hover {
-    background-color: #1976D2;
+    background-color: #3730a3;
+    transform: translateY(-1px);
 }
 
-/* Botón de Siguiente */
 .next-button {
-    background-color: #45a049;
+    background-color: #14b8a6; /* Teal */
     color: white;
-    border: none;
-    padding: 6px 12px;
-    text-align: center;
+    padding: 7px 14px;
     font-size: 12px;
-    margin: 5px;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    position: absolute; /* Permite la configuración de posición manual */
-    top: 900px; /* Cambia estos valores para ajustar la posición */
+    position: absolute;
+    top: 900px;
     left: 660px;
+    transition: background-color .3s ease, transform .2s ease;
 }
 
 .next-button:hover {
-    background-color: #45a049;
+    background-color: #0d9488;
+    transform: translateY(-1px);
 }
 
-.fortalezas-debilidades-container {
-    margin-top: 680px; /* Ajusta este valor para moverlo más abajo */
-    margin-left: 400px;
+
+/* === Modo oscuro === */
+@media (prefers-color-scheme: dark) {
+    body { background-color: #0f172a; color: #e2e8f0; }
+    h1, h2, h4 { color: #c7d2fe; }
+    .primeraparte-container, .segundaparte-container, .terceraparte-container,
+    .cuartaparte-container, .quintaparte-container, .sextaparte-container,
+    .septimaparte-container, .matrizbcg-container {
+        background-color: #1e293b;
+        border-color: #334155;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    table th, table td { border-color: #475569; color: #e2e8f0; }
+    ul li { background-color: #1e293b; border-color: #475569; }
+}
+.form-group {
+  margin-bottom: 10px;
+}
+
+.text-input {
+  width: 100%;
+  padding: 8px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #1e293b;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.text-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px #c7d2fe;
+  outline: none;
+}
+
+/* Hace que la card mantenga el estilo general */
+.card h4 {
+  border-bottom: 2px solid #6366f1;
+  padding-bottom: 4px;
+  font-size: 13px;
+  color: #4338ca;
+}
+
+.info-content,
+.info-content ul,
+.info-content li {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.info-content li {
+  margin-bottom: 0.3rem;
+}
+.info-content {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  overflow-x: auto;
+  z-index: 1000;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.info-content ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: flex-end;
+  margin-bottom: 0.1rem;
+}
+
+.info-content a {
+  display: block;
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 12px 24px 8px;
+  background-color: #6366f1; /* Indigo brillante */
+  border-radius: 12px;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+  margin-bottom: 0.3rem;
+}
+
+.info-content a:hover {
+  background-color: #4f46e5;
+  transform: translateY(-3px);
+}
+
+.info-content::-webkit-scrollbar {
+  height: 6px;
+}
+.info-content::-webkit-scrollbar-thumb {
+  background-color: #6366f1;
+  border-radius: 4px;
+}
+.info-content::-webkit-scrollbar-track {
+  background: transparent;
 }
