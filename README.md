@@ -1,4 +1,4 @@
-# 🧩 PE_II_Examen_practico
+#  PE_II_Examen_practico
 
 **"Examen Práctica Unidad II - PETI"**  
 **Autor:** *Duanet Soto Rodríguez*  
@@ -6,21 +6,21 @@
 
 ---
 
-### 🔗 URL del Repositorio GitHub  
+###  URL del Repositorio GitHub  
 [https://github.com/dannsotor/PE_II_Examen_practico](https://github.com/dannsotor/PE_II_Examen_practico)
 
 ---
 
-## 🛠️ Mejoras realizadas
+##  Mejoras realizadas
 
-### 📤 Subida del logo
+###  Subida del logo
 Ahora se puede subir **archivos PNG o JPG**, y se visualiza correctamente al final de la edición.  
 
 ![Subida de Logo](https://github.com/user-attachments/assets/bf5dc083-009b-4319-89d2-1a83e12edcb6)
 
 ---
 
-### 📊 Mejora del Resumen del Plan Estratégico
+###  Mejora del Resumen del Plan Estratégico
 Se añadió una **encuesta de satisfacción** al finalizar el plan estratégico.  
 
 ![Encuesta de Satisfacción](https://github.com/user-attachments/assets/45a06569-ffd3-4f67-88ec-66d1833584b0)
@@ -29,7 +29,7 @@ Se añadió una **encuesta de satisfacción** al finalizar el plan estratégico.
 
 ---
 
-### 🖼️ Capturas de interfaz y mejoras visuales
+###  Capturas de interfaz y mejoras visuales
 Imágenes del sistema mostrando las nuevas actualizaciones y mejoras implementadas.  
 
 ![Capturas del Sistema](https://github.com/user-attachments/assets/9bb1fc95-f59c-46e5-8751-ab371c405e94)
