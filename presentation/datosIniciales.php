@@ -58,6 +58,7 @@ if (!isset($_SESSION['idusuario'])) {
       </div>
 
       <!-- Logo -->
+         <!-- Mejoramos esta seccion -->
       <div>
         <label for="logo" class="block mb-1 text-sm font-semibold text-indigo-700 dark:text-indigo-300">Subir Logo</label>
         <input type="file" id="logo" name="logo" accept="image/*" required
